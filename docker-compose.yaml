@@ -1,0 +1,18 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: ContainernameX
+    volumes:
+     - /home/webserver/ContainernameX:/usr/share/nginx/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ContainernameX.entrypoints=websecure"
+      - "traefik.http.routers.ContainernameX.rule=Host(`DomainX`)"
+      - "traefik.http.routers.ContainernameX.tls=true"
+      - "traefik.http.routers.ContainernameX.tls.certresolver=production"
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true
